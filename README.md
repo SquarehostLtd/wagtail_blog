@@ -6,9 +6,9 @@ A WordPress-like blog app implemented in Wagtail.
 
 # What is it
 
-After reimplimenting WordPress-like blogs over and over again in Wagtail I decided to just make this. 
-Feel free to use as is or copy it as a starting point. 
-It's based on the Wagtail demo blog but is closer to a standard WordPress blog style. 
+After reimplimenting WordPress-like blogs over and over again in Wagtail I decided to just make this.
+Feel free to use as is or copy it as a starting point.
+It's based on the Wagtail demo blog but is closer to a standard WordPress blog style.
 
 This is a starting point for your wagtail based blog, especially if you are migrating from Wordpress. It's not Wordpress and it's not drop in. You are expected to add your own templates and are given on a skeleton template to start from.
 
@@ -31,7 +31,7 @@ See http://docs.wagtail.io
 
 1. `pip install wagtail-blog`
 2. Add `blog` to INSTALLED_APPS
-3. Add `url(r'^blog/', include('blog.urls', namespace="blog")),` to urls.py
+3. Add `path('blog/', include('blog.urls', namespace="blog")),` to urls.py
 4. `python manage.py migrate`
 5. Override [templates](/blog/templates/blog/) as needed.
 
@@ -51,18 +51,18 @@ The import feature requires `django-contrib-comments` and `django-comments-xtd`
 2. Create a Blog index page and note the title. Let's pretend my blog index page title is "blog"
 3. Run `./manage.py wordpress_to_wagtail blog --url=http://myblog.com username password` the username is your WordPress username with full access to the API. Without this you can't access all blog posts.
 
-This works by getting the json data for your posts and making Wagtail pages for them. 
-It then downloads any images it finds and replaces urls to use your site instead of an external site. 
+This works by getting the json data for your posts and making Wagtail pages for them.
+It then downloads any images it finds and replaces urls to use your site instead of an external site.
 Blog authors will become Django users.
 This is a complex process and is prone to error. You should plan to review the import code and fix some issues.
 Merge requests welcome to improve this feature.
 
 ## XML file import
 
-1. Create a WordPress XML dump by selecting "export" from the "Tools" section 
+1. Create a WordPress XML dump by selecting "export" from the "Tools" section
 of the WordPress admin page.
 2. Create a Blog index page and note the title. Let's pretend my blog index page title is "blog"
-3. Run `./manage.py wordpress_to_wagtail blog --xml=export.xml` where export.xml is the XML export file from your source WordPress site. 
+3. Run `./manage.py wordpress_to_wagtail blog --xml=export.xml` where export.xml is the XML export file from your source WordPress site.
 
 The xml importer uses the lxml library.
 
@@ -71,7 +71,7 @@ Like the import procedure above, this process is complex and prone to error.
 
 # Comments
 
-django-comments-xtd comments work out of the box. Just install it as directed [here](http://django-comments-xtd.readthedocs.org/en/latest/). 
+django-comments-xtd comments work out of the box. Just install it as directed [here](http://django-comments-xtd.readthedocs.org/en/latest/).
 Customizing the xtd comment templates should be all you need - but feel free to review this app's templates which you may want to override.
 
 Out of box Disqus coming someday - but it's pretty easy to add manually following the Disqus documentation and overriding templates.
@@ -80,7 +80,7 @@ Feel free to contribute other comment implimentations.
 
 # Hacking
 
-The included docker-compose file should make it easy to get up and running. 
+The included docker-compose file should make it easy to get up and running.
 
 1. Install docker and docker-compose
 2. `docker-compose up`
