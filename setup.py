@@ -21,7 +21,7 @@ setup(
         "License :: OSI Approved :: Apache Software License",
     ],
     install_requires=[
-        'wagtail>=1.0.0',
+        'wagtail==2.0b1',
         'requests',
         'lxml'
     ]
