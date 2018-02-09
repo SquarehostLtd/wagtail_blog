@@ -7,13 +7,13 @@ from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page
+from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel)
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
-from wagtail.wagtailsearch import index
+from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
+from wagtail.search import index
 from taggit.models import TaggedItemBase, Tag
 from modelcluster.tags import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -117,7 +117,7 @@ class BlogCategory(models.Model):
         help_text=_(
             'Categories, unlike tags, can have a hierarchy. You might have a '
             'Jazz category, and under that have children categories for Bebop'
-            ' and Big Band. Totally optional.')
+            ' and Big Band. Totally optional.'), on_delete=models.CASCADE
     )
     description = models.CharField(max_length=500, blank=True)
 
@@ -155,15 +155,18 @@ class BlogCategory(models.Model):
 
 class BlogCategoryBlogPage(models.Model):
     category = models.ForeignKey(
-        BlogCategory, related_name="+", verbose_name=_('Category'))
-    page = ParentalKey('BlogPage', related_name='categories')
+        BlogCategory, related_name="+", verbose_name=_('Category'),
+        on_delete=models.CASCADE)
+    page = ParentalKey('BlogPage', related_name='categories',
+        on_delete=models.CASCADE)
     panels = [
         FieldPanel('category'),
     ]
 
 
 class BlogPageTag(TaggedItemBase):
-    content_object = ParentalKey('BlogPage', related_name='tagged_items')
+    content_object = ParentalKey('BlogPage', related_name='tagged_items',
+        on_delete=models.CASCADE)
 
 
 @register_snippet

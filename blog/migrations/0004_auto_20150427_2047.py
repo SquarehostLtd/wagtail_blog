@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import wagtail.wagtailcore.fields
+import wagtail.core.fields
 import django.db.models.deletion
 
 
@@ -34,19 +34,19 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='blogcategory',
             name='parent',
-            field=models.ForeignKey(blank=True, null=True, to='blog.BlogCategory', help_text='Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.'),
+            field=models.ForeignKey(blank=True, null=True, to='blog.BlogCategory', help_text='Categories, unlike tags, can have a hierarchy. You might have a Jazz category, and under that have children categories for Bebop and Big Band. Totally optional.', on_delete=django.db.models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='blogcategoryblogpage',
             name='category',
-            field=models.ForeignKey(verbose_name='Category', related_name='+', to='blog.BlogCategory'),
+            field=models.ForeignKey(verbose_name='Category', related_name='+', to='blog.BlogCategory', on_delete=django.db.models.deletion.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='blogpage',
             name='body',
-            field=wagtail.wagtailcore.fields.RichTextField(verbose_name='body'),
+            field=wagtail.core.fields.RichTextField(verbose_name='body'),
             preserve_default=True,
         ),
         migrations.AlterField(

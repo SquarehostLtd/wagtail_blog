@@ -1,5 +1,5 @@
-Django==1.11.10
-wagtail==1.13.1
+Django==2.0.2
+wagtail==2.0b1
 django-hashers-passlib==0.4
 django-storages==1.6.5
 boto3
