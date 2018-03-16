@@ -7,7 +7,8 @@ from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
-from wagtail.core.fields import RichTextField
+from wagtail.core import blocks
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel)
@@ -193,7 +194,10 @@ def limit_author_choices():
 
 
 class BlogPage(Page):
-    body = RichTextField(verbose_name=_('body'), blank=True)
+    body = StreamField([
+        ('rich_text', blocks.RichTextBlock()),
+    ])
+    # body = RichTextField(verbose_name=_('body'), blank=True)
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     date = models.DateField(
         _("Post date"), default=datetime.datetime.today,
